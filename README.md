@@ -44,8 +44,11 @@ This is a unique blend of **Machine Learning + Cloud Deployment + Immersive UI/U
 
 ## 📸 Preview
 
-> Replace this link after uploading your screenshot to GitHub or imgur:
-> `![Preview Screenshot](YOUR_SCREENSHOT_URL_HERE)`
+##Survived
+![alt text](image-1.png)
+
+##Not Survived
+![alt text](image-2.png)
 
 ---
 

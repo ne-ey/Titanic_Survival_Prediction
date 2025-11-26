@@ -7,9 +7,9 @@ app = Flask(__name__, template_folder="templates", static_folder="static")
 # ----------------------------
 # CONFIG - Replace these values
 # ----------------------------
-API_KEY = "BHQwK93PebW0Cs5Gf36GUqwMYnjxN6qyMxc0T1d46NYL"
+API_KEY = os.environ.get("API_KEY")
+DEPLOYMENT_URL = os.environ.get("DEPLOYMENT_URL")
 
-DEPLOYMENT_URL = "https://au-syd.ml.cloud.ibm.com/ml/v4/deployments/titanicsurvivalapi/predictions?version=2021-05-01"
 
 def get_token():
     url = "https://iam.cloud.ibm.com/identity/token"

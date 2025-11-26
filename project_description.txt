@@ -1,0 +1,30 @@
+Project Title: Titanic Survival Prediction using IBM Watson AutoAI
+
+Overview:
+This project predicts whether a Titanic passenger would survive or not based on demographic and travel-related details such as Pclass, Sex, Age, SibSp, Parch, Fare, and Embarked. The goal is to build a complete end-to-end machine learning system using cloud AutoML and integrate it with a custom UI.
+
+Technical Workflow:
+1. Dataset (Titanic - Machine Learning from Disaster) was uploaded to IBM Watson Studio.
+2. Data Refinery was used for cleaning, removing irrelevant columns, and handling missing values.
+3. IBM AutoAI automatically trained multiple models using feature engineering + hyperparameter optimization.
+4. The best model was deployed as an online REST API in the Watson Machine Learning deployment space.
+5. API endpoint and API key are used to send prediction requests.
+6. A Flask-based User Interface (UI) collects passenger inputs and sends them to the IBM API for real-time prediction.
+7. The UI displays:
+   - Survived (1 or 0)
+   - Survival probability %
+
+Project Requirements:
+→ Create a clean folder structure for Flask + UI.
+→ Generate HTML/CSS UI template for input fields:
+   Pclass, Sex, Age, SibSp, Parch, Fare, Embarked.
+→ Flask backend file that:
+   - Accepts form inputs
+   - Builds JSON payload matching IBM AutoAI model fields
+   - Sends request to IBM REST API
+   - Displays prediction and probability
+→ Include sample dummy input data for testing.
+→ Add README with setup and run instructions.
+
+Output:
+A fully working prediction system where a user enters passenger details in the UI and receives a real-time survival prediction powered by IBM Watson AutoAI.

@@ -1,0 +1,373 @@
+/* ================================
+   BACKGROUND – DEEP OCEAN + STARS
+=================================== */
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: radial-gradient(circle at top, #02050f 0%, #02121e 40%, #000814 100%);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* VIGNETTE for cinematic look */
+.vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.65));
+  z-index: 1;
+}
+
+/* ================================
+   STARS
+=================================== */
+
+#stars-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.star {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: twinkle 2.5s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { opacity: 0.2; }
+}
+
+/* ================================
+   HEADER
+=================================== */
+
+.header-section {
+  margin-top: 40px;
+  z-index: 5;
+  position: relative;
+}
+
+.title-box {
+  background: rgba(0,0,0,0.3);
+  padding: 25px;
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+  display: inline-block;
+}
+
+.titanic-hero {
+  width: 380px;
+  border-radius: 15px;
+  animation: floatShip 5s ease-in-out infinite;
+}
+
+@keyframes floatShip {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.main-title {
+  margin-top: 15px;
+  color: #e5f4ff;
+  font-size: 2.6rem;
+  font-weight: 800;
+  text-shadow: 0 0 15px rgba(0,150,255,0.4);
+}
+
+.subtitle {
+  color: #b7d5f5;
+  font-size: 1.1rem;
+  margin-top: 5px;
+}
+
+/* ================================
+   FORM CARD – GLASS
+=================================== */
+
+.form-container {
+  margin-top: 40px;
+  z-index: 5;
+}
+
+.glass-card {
+  background: rgba(255,255,255,0.10);
+  border-radius: 22px;
+  padding: 28px;
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 45px rgba(0,150,255,0.15);
+}
+
+.form-heading {
+  text-align: center;
+  color: #e8f4ff;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.form-subtext {
+  text-align: center;
+  color: #97b4d4;
+  margin-bottom: 12px;
+}
+
+/* Input styling */
+
+label {
+  color: #cfe7ff;
+  font-size: 14px;
+}
+
+.custom-input {
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 10px;
+  height: 40px;
+}
+
+/* CTA BUTTON */
+
+.cta-btn {
+  background: linear-gradient(135deg, #006cff, #00d4ff);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 18px rgba(0,180,255,0.5);
+}
+
+/* RESULT BOXES */
+
+.result-success,
+.result-fail {
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.result-success {
+  background: rgba(0,255,140,0.15);
+  border: 1px solid #00ff9f;
+  color: #00d492;
+}
+
+.result-fail {
+  background: rgba(255,40,70,0.15);
+  border: 1px solid #ff506c;
+  color: #ff6280;
+}
+
+/* POWERED BY */
+
+.powered {
+  text-align: center;
+  color: #aac8ea;
+  margin-top: 12px;
+  font-size: 0.9rem;
+}
+
+.powered span {
+  color: #00b7ff;
+  font-weight: 600;
+}
+
+/* WAVES */
+
+.ocean {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 300%;
+  height: 220px;
+  background: url("../assets/wave.png") repeat-x;
+  background-size: contain;
+  opacity: 0.90;
+  filter: brightness(1.25) contrast(1.2);
+  animation: oceanFront 12s linear infinite;
+  z-index: 3;
+}
+
+@keyframes oceanFront {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-33%); }
+}
+
+
+/* BACK OCEAN (deep, slow) */
+.ocean-back {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 350%;
+  height: 260px;
+  background: url("../assets/wave.png") repeat-x;
+  background-size: contain;
+  opacity: 0.40;
+  filter: brightness(0.4) contrast(1.05);
+  animation: oceanBack 20s linear infinite;
+  z-index: 2;
+}
+
+@keyframes oceanBack {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+
+.moonlight {
+  position: fixed;
+  bottom: 200px;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: radial-gradient(
+    circle at 50% 100%,
+    rgba(255,255,255,0.25) 0%,
+    rgba(255,255,255,0.10) 35%,
+    rgba(0,0,0,0) 80%
+  );
+  filter: blur(18px);
+  z-index: 2;
+  pointer-events: none;
+}
+/* Heavy fog drifting */
+.fog-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: radial-gradient(
+      circle at 50% 20%,
+      rgba(255,255,255,0.08) 0%,
+      rgba(255,255,255,0.03) 40%,
+      rgba(0,0,0,0) 80%
+  );
+  filter: blur(18px);
+  opacity: 0.35;
+  animation: fogMove 45s linear infinite;
+  z-index: 4;
+  pointer-events: none;
+}
+
+@keyframes fogMove {
+  0%   { transform: translateX(-20%); }
+  100% { transform: translateX(20%); }
+}
+
+/* Light mist on top */
+.mist-layer {
+  position: fixed;
+  top: 0;
+  width: 200%;
+  height: 100%;
+  background: radial-gradient(
+      circle at 50% 80%,
+      rgba(255,255,255,0.05),
+      transparent 70%
+  );
+  opacity: 0.20;
+  animation: mistFloat 90s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 4;
+}
+
+@keyframes mistFloat {
+  0%   { transform: translateX(0); }
+  50%  { transform: translateX(-15%); }
+  100% { transform: translateX(0); }
+}
+
+
+.cold-wind {
+  position: fixed;
+  top: 10%;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.03),
+    rgba(0,0,0,0)
+  );
+  opacity: 0.12;
+  filter: blur(10px);
+  animation: windFlow 14s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@keyframes windFlow {
+  0%   { transform: translateX(0); }
+  50%  { transform: translateX(-4%); }
+  100% { transform: translateX(0); }
+}
+
+.iceberg-left {
+  position: fixed;
+  bottom: 120px;
+  left: 0;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle at bottom,
+    rgba(200,240,255,0.3) 0%,
+    rgba(200,240,255,0.05) 60%,
+    transparent 100%);
+  filter: blur(4px);
+  z-index: 2;
+}
+
+.iceberg-right {
+  position: fixed;
+  bottom: 100px;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle at bottom,
+    rgba(200,240,255,0.25) 0%,
+    rgba(200,240,255,0.05) 60%,
+    transparent 100%);
+  filter: blur(5px);
+  z-index: 2;
+}
+.clouds {
+  position: fixed;
+  top: 0;
+  width: 200%;
+  height: 100%;
+  background: url("https://i.ibb.co/Z2YJ69K/clouds-overlay.png");
+  background-size: cover;
+  opacity: 0.06;
+  animation: cloudDrift 90s linear infinite;
+  z-index: 3;
+  pointer-events: none;
+}
+
+@keyframes cloudDrift {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-30%); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.1; transform: scale(0.9); }
+  50%      { opacity: 1; transform: scale(1.2); }
+}
+
+

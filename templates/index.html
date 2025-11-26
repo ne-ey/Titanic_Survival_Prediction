@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Titanic Survival Prediction</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+  <!-- STARS -->
+  <div id="stars-container"></div>
+
+  <!-- BACK OCEAN -->
+  <div class="ocean-back"></div>
+
+  <!-- FRONT OCEAN -->
+  <div class="ocean"></div>
+
+  <!-- MOONLIGHT -->
+  <div class="moonlight"></div>
+
+  <!-- CLOUDS -->
+  <div class="clouds"></div>
+
+  <!-- LIGHT FOG -->
+  <div class="fog-layer"></div>
+  <div class="mist-layer"></div>
+
+  <!-- WIND -->
+  <div class="cold-wind"></div>
+
+  <!-- ICEBERG GLOWS -->
+  <div class="iceberg-left"></div>
+  <div class="iceberg-right"></div>
+
+  <!-- VIGNETTE -->
+  <div class="vignette"></div>
+
+  <!-- HEADER SECTION -->
+  <section class="header-section text-center">
+    <div class="title-box">
+      <img src="{{ url_for('static', filename='assets/titanic.jpg') }}"
+           class="titanic-hero shadow-lg">
+
+      <h1 class="main-title">Titanic Survival Prediction</h1>
+      <p class="subtitle">A cold April night. A voyage into the unknown.<br>
+         Predict a passenger's fate using IBM AutoAI.</p>
+    </div>
+  </section>
+
+  <!-- MAIN FORM -->
+  <main class="container form-container">
+    <div class="row justify-content-center">
+      <div class="col-lg-5">
+        <div class="glass-card">
+
+          <h2 class="form-heading">
+            <i class="bi bi-clipboard2-pulse me-1"></i> Prediction Form
+          </h2>
+          <p class="form-subtext">Enter passenger details</p>
+
+          <!-- FORM START -->
+          <form id="predictForm" method="POST" action="/predict">
+
+            <div class="row g-3">
+
+              <div class="col-md-6">
+                <label><i class="bi bi-person-badge"></i> Class</label>
+                <select name="Pclass" class="form-select custom-input">
+                  <option value="1">1 (Upper)</option>
+                  <option value="2">2 (Middle)</option>
+                  <option value="3" selected>3 (Lower)</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label><i class="bi bi-gender-ambiguous"></i> Sex</label>
+                <select name="Sex" class="form-select custom-input">
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label><i class="bi bi-calendar2"></i> Age</label>
+                <input type="number" name="Age" class="form-control custom-input" placeholder="25">
+              </div>
+
+              <div class="col-md-6">
+                <label><i class="bi bi-cash-stack"></i> Fare ($)</label>
+                <input type="number" step="0.01" name="Fare" class="form-control custom-input" placeholder="50.00">
+              </div>
+
+              <div class="col-md-6">
+                <label><i class="bi bi-people"></i> Siblings / Spouse</label>
+                <input type="number" name="SibSp" class="form-control custom-input" value="0">
+              </div>
+
+              <div class="col-md-6">
+                <label><i class="bi bi-person-heart"></i> Parents / Children</label>
+                <input type="number" name="Parch" class="form-control custom-input" value="0">
+              </div>
+
+              <div class="col-12">
+                <label><i class="bi bi-geo-alt"></i> Embarked</label>
+                <select class="form-select custom-input" name="Embarked">
+                  <option value="S">Southampton (S)</option>
+                  <option value="C">Cherbourg (C)</option>
+                  <option value="Q">Queenstown (Q)</option>
+                </select>
+              </div>
+
+              <!-- SUBMIT BUTTON -->
+              <div class="col-12 mt-2">
+                <button id="submitBtn" type="submit" class="cta-btn w-100">
+                  📊 Analyze Survival Probability
+                </button>
+              </div>
+
+            </div>
+          </form>
+
+          <!-- RESULT SECTION -->
+          <div id="resultBox" class="mt-3"></div>
+
+          <!-- POWERED BY -->
+          <p class="powered">Powered by <span>IBM Watson AutoAI</span></p>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- EMOJI EFFECTS ROOT -->
+  <div id="effectsRoot"></div>
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/effects.js') }}"></script>
+
+  <!-- AJAX LOGIC -->
+  <script>
+    // Generate Stars
+    const stars = document.getElementById("stars-container");
+    for (let i = 0; i < 120; i++) {
+      const s = document.createElement("div");
+      s.classList.add("star");
+      s.style.left = Math.random() * 100 + "vw";
+      s.style.top = Math.random() * 100 + "vh";
+      s.style.animationDuration = (2 + Math.random() * 3) + "s";
+      stars.appendChild(s);
+    }
+
+    // AJAX submission
+    const form = document.getElementById('predictForm');
+    const resultBox = document.getElementById('resultBox');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Analyzing...";
+
+      const formData = new FormData(form);
+      const resp = await fetch('/predict', { method: 'POST', body: formData });
+      const data = await resp.json();
+
+      submitBtn.disabled = false;
+      submitBtn.innerText = "📊 Analyze Survival Probability";
+
+      if (data.error) {
+        resultBox.innerHTML = `
+          <div class="result-fail">Error: ${data.error}</div>`;
+        return;
+      }
+
+      if (data.prediction == 1) {
+        resultBox.innerHTML = `
+          <div class="result-success">
+            Survived<br>Probability: ${data.probability}%
+          </div>`;
+        startSnow();
+      } else {
+        resultBox.innerHTML = `
+          <div class="result-fail">
+            Not Survived<br>Probability: ${data.probability}%
+          </div>`;
+        startSkullRain();
+      }
+    });
+  </script>
+
+</body>
+</html>

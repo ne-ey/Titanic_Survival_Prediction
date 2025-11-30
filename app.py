@@ -15,10 +15,13 @@ DEPLOYMENT_URL = "https://au-syd.ml.cloud.ibm.com/ml/v4/deployments/6b6c9b40-106
 def get_token():
     url = "https://iam.cloud.ibm.com/identity/token"
     data = {
-        "apikey": API_KEY,
-        "grant_type": "urn:ibm:params:oauth:grant-type:apikey"
+        "grant_type": "urn:ibm:params:oauth:grant-type:apikey",
+        "apikey": API_KEY
     }
-    r = requests.post(url, data=data, timeout=10)
+    headers = {
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+    r = requests.post(url, data=data, headers=headers, timeout=20)
     r.raise_for_status()
     return r.json()["access_token"]
 

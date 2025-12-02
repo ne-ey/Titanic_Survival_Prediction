@@ -1,16 +1,14 @@
 from flask import Flask, render_template, request, send_from_directory, jsonify
 import requests
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 
-# ----------------------------
-# CONFIG - Replace these values
-# ----------------------------
 
-API_KEY = "T_iP9Q-zX34szhbKpdu0x8Lf_3Zgy2rlRUnrELk9R9GG"
-
-DEPLOYMENT_URL = "https://au-syd.ml.cloud.ibm.com/ml/v4/deployments/6b6c9b40-1066-4e05-9e6b-02589de9eafa/predictions?version=2021-05-01"
+API_KEY = os.getenv("API_KEY")
+DEPLOYMENT_URL = os.getenv("DEPLOYMENT_URL")
 
 def get_token():
     url = "https://iam.cloud.ibm.com/identity/token"
